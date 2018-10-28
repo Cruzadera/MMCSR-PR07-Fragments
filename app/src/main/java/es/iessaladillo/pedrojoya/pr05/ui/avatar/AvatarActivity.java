@@ -30,7 +30,6 @@ public class AvatarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avatar);
-        // TODO
     }
 
     @Override
@@ -42,7 +41,6 @@ public class AvatarActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuSelect) {
-            // TODO
             return true;
         }
         return super.onOptionsItemSelected(item);

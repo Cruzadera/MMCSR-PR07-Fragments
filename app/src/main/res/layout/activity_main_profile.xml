@@ -1,208 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/clProfile"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/general_activity_margin">
-
+    android:layout_height="match_parent">
     <TextView
         android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:text="@string/main_lblName"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/lblName"
         android:textColor="@color/color_state_selector"
-        android:textStyle="bold"
+        android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
     <EditText
         android:id="@+id/txtName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:hint="@string/main_txtName"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/txtName"
         android:inputType="textPersonName"
-        android:labelFor="@+id/lblName"
-        android:nextFocusForward="@+id/txtEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblName"
-        tools:text="@sample/users.json/users/fullname"
-        tools:ignore="Autofill">
-        <requestFocus/>
-    </EditText>
+        android:nextFocusDown="@id/txtEmail"/>
 
     <TextView
         android:id="@+id/lblEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:text="@string/main_lblEmail"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/lblEmail"
         android:textColor="@color/color_state_selector"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtName"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtName"
+        android:nextFocusRight="@id/txtPhonenumber"
+        android:nextFocusDown="@id/txtPhonenumber"/>
 
     <EditText
         android:id="@+id/txtEmail"
-        android:layout_width="0dp"
+        android:layout_width="157dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:labelFor="@+id/lblEmail"
+        android:layout_marginStart="16dp"
         android:ems="10"
-        android:hint="@string/main_txtEmail"
+        android:hint="@string/txtEmail"
         android:inputType="textEmailAddress"
-        android:nextFocusDown="@+id/txtPhonenumber"
-        app:layout_constraintEnd_toStartOf="@+id/imgEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblEmail"
-        tools:text="@sample/users.json/users/email"
-        tools:ignore="Autofill"/>
+        android:nextFocusRight="@id/txtPhonenumber"
+        android:nextFocusDown="@id/txtPhonenumber"/>
 
     <ImageView
         android:id="@+id/imgEmail"
-        android:layout_width="@dimen/general_button_min_wdith"
-        android:layout_height="@dimen/general_button_min_wdith"
-        android:layout_marginBottom="@dimen/general_activity_margin"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:contentDescription="@string/main_imgEmail"
-        android:focusable="false"
-        android:src="@drawable/ic_email_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:tint="@color/color_state_selector"
-        app:layout_constraintBottom_toBottomOf="@+id/txtEmail"
         app:layout_constraintEnd_toStartOf="@+id/txtPhonenumber"
-        app:layout_constraintTop_toTopOf="@+id/txtEmail"/>
+        app:layout_constraintStart_toEndOf="@+id/txtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/lblEmail"
+        android:contentDescription="@string/descriptionEmail"
+        app:srcCompat="@drawable/ic_email_24dp" />
 
     <TextView
         android:id="@+id/lblPhonenumber"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:text="@string/main_lblPhonenumber"
+        android:layout_height="17dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/lblNumber"
         android:textColor="@color/color_state_selector"
-        app:layout_constraintStart_toStartOf="@+id/txtPhonenumber"
-        app:layout_constraintTop_toBottomOf="@+id/txtName"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
     <EditText
         android:id="@+id/txtPhonenumber"
-        android:layout_width="0dp"
+        android:layout_width="102dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:labelFor="@+id/lblPhonenumber"
-        android:ems="5"
-        android:hint="@string/main_txtPhonenumber"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/txtPhone"
         android:inputType="phone"
-        android:maxLength="@integer/main_txtEmail_maxLength"
-        android:nextFocusDown="@+id/txtAddress"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtEmail"
         app:layout_constraintEnd_toStartOf="@+id/imgPhonenumber"
-        app:layout_constraintTop_toBottomOf="@+id/lblPhonenumber"
-        tools:text="@sample/users.json/users/phonenumber"
-        tools:ignore="Autofill"/>
+        android:nextFocusRight="@id/txtAddress"
+        android:nextFocusDown="@id/txtAddress"
+        />
 
     <ImageView
         android:id="@+id/imgPhonenumber"
-        android:layout_width="@dimen/general_button_min_wdith"
-        android:layout_height="@dimen/general_button_min_wdith"
-        android:layout_marginBottom="@dimen/general_activity_margin"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:contentDescription="@string/main_imgPhonenumber"
-        android:src="@drawable/ic_call_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:tint="@color/color_state_selector"
-        android:focusable="false"
-        app:layout_constraintBottom_toBottomOf="@+id/txtPhonenumber"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtPhonenumber"/>
+        app:layout_constraintTop_toTopOf="@+id/txtPhonenumber"
+        android:contentDescription="@string/descriptionPhone"
+        app:srcCompat="@drawable/ic_call_24dp" />
 
     <TextView
         android:id="@+id/lblAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:text="@string/main_lblAddress"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/color_state_selector"
+        android:text="@string/lblAdress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPhonenumber"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
     <EditText
         android:id="@+id/txtAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:labelFor="@+id/lblAddress"
-        android:hint="@string/main_txtAddress"
-        android:inputType="textPostalAddress"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/txtAdress"
+        android:inputType="text"
         app:layout_constraintEnd_toStartOf="@+id/imgAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblAddress"
-        tools:text="@sample/users.json/users/address"
-        tools:ignore="Autofill"/>
-
-    <ImageView
-        android:id="@+id/imgAddress"
-        android:layout_width="@dimen/general_button_min_wdith"
-        android:layout_height="@dimen/general_button_min_wdith"
-        android:layout_marginBottom="@dimen/general_activity_margin"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:contentDescription="@string/main_imgAddress"
-        android:focusable="false"
-        android:src="@drawable/ic_map_24dp"
-        android:tint="@color/color_state_selector"
-        app:layout_constraintBottom_toBottomOf="@+id/txtAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtAddress"/>
+        android:nextFocusDown="@id/txtWeb"/>
 
     <TextView
         android:id="@+id/lblWeb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:text="@string/main_lblWeb"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/lblWeb"
         android:textColor="@color/color_state_selector"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddress"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
 
     <EditText
         android:id="@+id/txtWeb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginStart="@dimen/general_activity_margin"
-        android:labelFor="@+id/lblWeb"
-        android:hint="@string/main_txtWeb"
-        android:inputType="textWebEditText"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/txtWeb"
+        android:inputType="textUri"
         app:layout_constraintEnd_toStartOf="@+id/imgWeb"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblWeb"
-        tools:text="@sample/users.json/users/web"
-        tools:ignore="Autofill"/>
+        app:layout_constraintTop_toBottomOf="@+id/lblWeb" />
+
+    <ImageView
+        android:id="@+id/imgAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgEmail"
+        app:srcCompat="@drawable/ic_map_24dp"
+        android:contentDescription="@string/descriptionAddres"/>
 
     <ImageView
         android:id="@+id/imgWeb"
-        android:layout_width="@dimen/general_button_min_wdith"
-        android:layout_height="@dimen/general_button_min_wdith"
-        android:layout_marginBottom="@dimen/general_activity_margin"
-        android:layout_marginEnd="@dimen/general_activity_margin"
-        android:layout_marginTop="@dimen/general_activity_margin"
-        android:contentDescription="@string/main_imgWeb"
-        android:src="@drawable/ic_web_24dp"
-        android:tint="@color/color_state_selector"
-        app:layout_constraintBottom_toBottomOf="@+id/txtWeb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtWeb"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/imgAddress"
+        app:srcCompat="@drawable/ic_web_24dp"
+        android:contentDescription="@string/descriptionWeb"/>
+</merge>

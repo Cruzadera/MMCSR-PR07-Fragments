@@ -6,5 +6,25 @@
     <string name="main_saved_succesfully">Student saved successfully</string>
     <string name="main_error_saving">Error saving student</string>
     <string name="avatar_select">Select</string>
-    <!-- TODO -->
+    <string name="txtWeb">(web)</string>
+    <string name="lblWeb">Web</string>
+    <string name="txtAdress">(adress)</string>
+    <string name="lblAdress">Adress</string>
+    <string name="txtPhone">(phone)</string>
+    <string name="lblNumber">Phone number</string>
+    <string name="txtEmail">(email)</string>
+    <string name="lblEmail">Email</string>
+    <string name="txtName">(name)</string>
+    <string name="lblName">Name</string>
+    <string name="descriptionPhone">icon phone</string>
+    <string name="descriptionEmail">icon email</string>
+    <string name="descriptionAddres">icon address</string>
+    <string name="descriptionWeb">icon web</string>
+    <string name="descriptionAvatar">image of avatar</string>
+    <string name="contentDescriptionImg6">image of Avatar 6</string>
+    <string name="contentDescriptionImg4">image of Avatar 4</string>
+    <string name="contentDescriptionImg2">image of Avatar 2</string>
+    <string name="contentDescriptionImg5">image of Avatar 5</string>
+    <string name="contentDescriptionImg3">image of Avatar 3</string>
+    <string name="contentDescriptionImg1">image of Avatar 1</string>
 </resources>
