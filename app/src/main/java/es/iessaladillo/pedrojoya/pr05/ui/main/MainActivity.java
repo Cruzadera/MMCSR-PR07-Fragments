@@ -49,12 +49,24 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int RC_AVATAR = 1;
     private Avatar avatar = database.getDefaultAvatar();
+    private static final String STATE_IMAGE = "STATE_IMAGE";
+    private long idChoosed = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(STATE_IMAGE, idChoosed);
+    }
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        idChoosed = savedInstanceState.getLong("STATE_IMAGE");
+        changeAvatar(database.queryAvatar(idChoosed));
     }
 
     // DO NOT TOUCH
@@ -214,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
             if (data != null && data.hasExtra(AvatarActivity.EXTRA_AVATAR)) {
                 avatar = data.getParcelableExtra(AvatarActivity.EXTRA_AVATAR);
                 changeAvatar(avatar);
+                idChoosed = avatar.getId();
             }
         }
     }

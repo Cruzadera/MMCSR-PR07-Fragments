@@ -5,17 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProviders;
 import es.iessaladillo.pedrojoya.pr05.R;
 import es.iessaladillo.pedrojoya.pr05.data.local.Database;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.Avatar;
@@ -34,8 +31,10 @@ public class AvatarActivity extends AppCompatActivity {
     private TextView lblCat04;
     private TextView lblCat05;
     private TextView lblCat06;
-
     private Avatar avatar;
+    private ArrayList<ImageView> imageViews = new ArrayList<>();
+    private static final String STATE_AVATAR = "STATE_AVATAR";
+    private long idChoosed = 1;
 
     @VisibleForTesting
     public static final String EXTRA_AVATAR = "EXTRA_AVATAR";
@@ -44,6 +43,27 @@ public class AvatarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avatar);
+        initViews();
+        initAvatars();
+        getIntentData();
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(STATE_AVATAR, idChoosed);
+    }
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        idChoosed = savedInstanceState.getLong("STATE_AVATAR");
+        isSelected(idChoosed);
+    }
+
+    private void selectImageView(ImageView imageView) {
+        imageView.setAlpha(ResourcesUtils.getFloat(this, R.dimen.avatar_selected_image_alpha));
+    }
+
+    private void unselectImageView(ImageView imageView){
+        imageView.setAlpha(ResourcesUtils.getFloat(this, R.dimen.avatar_not_selected_image_alpha));
     }
 
     @Override
@@ -55,6 +75,7 @@ public class AvatarActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuSelect) {
+            selectAvatar(idChoosed);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -80,22 +101,31 @@ public class AvatarActivity extends AppCompatActivity {
         lblCat05 = ActivityCompat.requireViewById(this, R.id.lblAvatar5);
         lblCat06 = ActivityCompat.requireViewById(this, R.id.lblAvatar6);
 
-        imgCat01.setOnClickListener(l -> selectAvatar(1));
-        imgCat02.setOnClickListener(l -> selectAvatar(2));
-        imgCat03.setOnClickListener(l -> selectAvatar(3));
-        imgCat04.setOnClickListener(l -> selectAvatar(4));
-        imgCat05.setOnClickListener(l -> selectAvatar(5));
-        imgCat06.setOnClickListener(l -> selectAvatar(6));
+        imgCat01.setOnClickListener(l -> isSelected(1));
+        imgCat02.setOnClickListener(l -> isSelected(2));
+        imgCat03.setOnClickListener(l -> isSelected(3));
+        imgCat04.setOnClickListener(l -> isSelected(4));
+        imgCat05.setOnClickListener(l -> isSelected(5));
+        imgCat06.setOnClickListener(l -> isSelected(6));
 
-        lblCat01.setOnClickListener(l -> selectAvatar(1));
-        lblCat02.setOnClickListener(l -> selectAvatar(2));
-        lblCat03.setOnClickListener(l -> selectAvatar(3));
-        lblCat04.setOnClickListener(l -> selectAvatar(4));
-        lblCat05.setOnClickListener(l -> selectAvatar(5));
-        lblCat06.setOnClickListener(l -> selectAvatar(6));
-
+        lblCat01.setOnClickListener(l -> isSelected(1));
+        lblCat02.setOnClickListener(l -> isSelected(2));
+        lblCat03.setOnClickListener(l -> isSelected(3));
+        lblCat04.setOnClickListener(l -> isSelected(4));
+        lblCat05.setOnClickListener(l -> isSelected(5));
+        lblCat06.setOnClickListener(l -> isSelected(6));
     }
 
+    private void isSelected(long idSelected) {
+        idChoosed = idSelected;
+        for(int i=0; i<imageViews.size(); i++){
+            if (i+1!=idSelected) {
+                unselectImageView(imageViews.get(i));
+            }else{
+                selectImageView(imageViews.get(i));
+            }
+        }
+    }
     public static void startForResult(Activity activity, int requestCode, Avatar avatar) {
         Intent intent = new Intent(activity, AvatarActivity.class);
         intent.putExtra(EXTRA_AVATAR, avatar);
@@ -117,33 +147,16 @@ public class AvatarActivity extends AppCompatActivity {
         lblCat05.setText(R.string.avatar5_name);
         lblCat06.setText(R.string.avatar6_name);
 
-        //selectedAvatar();
+        imageViews.add(imgCat01);
+        imageViews.add(imgCat02);
+        imageViews.add(imgCat03);
+        imageViews.add(imgCat04);
+        imageViews.add(imgCat05);
+        imageViews.add(imgCat06);
     }
 
-   /* private void selectedAvatar() {
-        switch ((int) avatar.getId()) {
-            case 1:
-                selectImageView(imgCat01);
-                break;
-            case 2:
-                selectImageView(imgCat02);
-                break;
-            case 3:
-                selectImageView(imgCat03);
-                break;
-            case 4:
-                selectImageView(imgCat04);
-                break;
-            case 5:
-                selectImageView(imgCat05);
-                break;
-            case 6:
-                selectImageView(imgCat06);
-                break;
-        }
-    }*/
 
-    private void selectAvatar(int id) {
+    private void selectAvatar(long id) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_AVATAR, Database.getInstance().queryAvatar(id));
         setResult(RESULT_OK, intent);
@@ -154,11 +167,12 @@ public class AvatarActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_AVATAR)) {
             avatar = intent.getParcelableExtra(EXTRA_AVATAR);
-
         } else {
             throw new IllegalArgumentException("Activity cannot find  extras " + EXTRA_AVATAR);
         }
     }
+
+
 
 }
 

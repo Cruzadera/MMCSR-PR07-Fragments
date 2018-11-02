@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.avatar.AvatarActivity">
@@ -18,7 +19,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/cat1"/>
+        tools:src="@drawable/cat1"
+        android:contentDescription="@string/contentDescriptionImg1" />
 
     <ImageView
         android:id="@+id/imgAvatar2"
@@ -30,7 +32,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar1"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/cat2"/>
+        tools:src="@drawable/cat2"
+        android:contentDescription="@string/contentDescriptionImg2"/>
 
     <ImageView
         android:id="@+id/imgAvatar3"
@@ -42,7 +45,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAvatar1"
-        tools:src="@drawable/cat3"/>
+        tools:src="@drawable/cat3"
+        android:contentDescription="@string/contentDescriptionImg3"/>
 
     <ImageView
         android:id="@+id/imgAvatar4"
@@ -54,7 +58,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar3"
         app:layout_constraintTop_toBottomOf="@+id/imgAvatar2"
-        tools:src="@drawable/cat4"/>
+        tools:src="@drawable/cat4"
+        android:contentDescription="@string/contentDescriptionImg4"/>
 
     <ImageView
         android:id="@+id/imgAvatar5"
@@ -66,7 +71,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAvatar3"
-        tools:src="@drawable/cat5"/>
+        tools:src="@drawable/cat5"
+        android:contentDescription="@string/contentDescriptionImg5"/>
 
     <ImageView
         android:id="@+id/imgAvatar6"
@@ -78,7 +84,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar5"
         app:layout_constraintTop_toBottomOf="@+id/imgAvatar4"
-        tools:src="@drawable/cat6"/>
+        tools:src="@drawable/cat6"
+        android:contentDescription="@string/contentDescriptionImg6"/>
 
     <TextView
         android:id="@+id/lblAvatar1"
