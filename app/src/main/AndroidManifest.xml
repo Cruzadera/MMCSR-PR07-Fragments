@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.users.UsersActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,7 +24,8 @@
         <activity
             android:name=".ui.avatar.AvatarActivity"
             android:label="@string/avatar_label"
-            android:parentActivityName=".ui.main.MainActivity"/>
+            android:parentActivityName=".ui.users.UsersActivity"/>
+        <activity android:name=".ui.profile.ProfileActivity" />
     </application>
 
 </manifest>

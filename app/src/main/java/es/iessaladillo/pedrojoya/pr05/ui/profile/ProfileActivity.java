@@ -1,4 +1,4 @@
-package es.iessaladillo.pedrojoya.pr05.ui.main;
+package es.iessaladillo.pedrojoya.pr05.ui.profile;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -28,7 +28,7 @@ import es.iessaladillo.pedrojoya.pr05.utils.SnackbarUtils;
 import es.iessaladillo.pedrojoya.pr05.utils.ValidationUtils;
 
 @SuppressWarnings("WeakerAccess")
-public class MainActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
     private ImageView imgAvatar;
     private TextView lblAvatar;
     private EditText txtName;
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startAvatarActivity() {
-        AvatarActivity.startForResult(MainActivity.this, RC_AVATAR, avatar);
+        AvatarActivity.startForResult(ProfileActivity.this, RC_AVATAR, avatar);
     }
 
     private void initParametres() {

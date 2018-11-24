@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Profile</string>
+    <string name="app_name">Users</string>
     <string name="avatar_label">Select Avatar</string>
     <string name="main_invalid_data">Invalid data</string>
     <string name="main_save">Save</string>
@@ -27,4 +27,8 @@
     <string name="contentDescriptionImg5">image of Avatar 5</string>
     <string name="contentDescriptionImg3">image of Avatar 3</string>
     <string name="contentDescriptionImg1">image of Avatar 1</string>
+    <string name="btnEdit">Edit</string>
+    <string name="btnDelete">Delete</string>
+    <string name="contentDescriptionUserCV">Image of User</string>
+    <string name="no_users">No users yet</string>
 </resources>
