@@ -31,7 +31,6 @@ public class AvatarActivity extends AppCompatActivity {
     private TextView lblCat04;
     private TextView lblCat05;
     private TextView lblCat06;
-    private Avatar avatar;
     private ArrayList<ImageView> imageViews = new ArrayList<>();
     private static final String STATE_AVATAR = "STATE_AVATAR";
     private long idChoosed = 1;
@@ -45,6 +44,9 @@ public class AvatarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_avatar);
         initViews();
         initAvatars();
+        if(savedInstanceState != null){
+            unselectImageView(imageViews.get((int)idChoosed));
+        }
         getIntentData();
     }
 
@@ -165,6 +167,7 @@ public class AvatarActivity extends AppCompatActivity {
 
     private void getIntentData() {
         Intent intent = getIntent();
+        Avatar avatar;
         if (intent != null && intent.hasExtra(EXTRA_AVATAR)) {
             avatar = intent.getParcelableExtra(EXTRA_AVATAR);
         } else {

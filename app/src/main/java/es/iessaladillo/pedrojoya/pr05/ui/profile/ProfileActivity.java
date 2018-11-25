@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import es.iessaladillo.pedrojoya.pr05.R;
 import es.iessaladillo.pedrojoya.pr05.data.local.Database;
-import es.iessaladillo.pedrojoya.pr05.data.local.UsersDB;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.Avatar;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
 import es.iessaladillo.pedrojoya.pr05.ui.avatar.AvatarActivity;
@@ -56,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String STATE_IMAGE = "STATE_IMAGE";
     public static final String EXTRA_USER = "EXTRA_USER";
     private long idChoosed = 1;
+    private static int requestCodeCurrent = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putLong(STATE_IMAGE, idChoosed);
     }
+
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         idChoosed = savedInstanceState.getLong("STATE_IMAGE");
@@ -249,6 +250,7 @@ public class ProfileActivity extends AppCompatActivity {
         AvatarActivity.startForResult(ProfileActivity.this, RC_AVATAR, avatar);
     }
 
+
     private void initParametres() {
         lblName.setTypeface(Typeface.DEFAULT_BOLD);
         txtName.requestFocus();
@@ -320,7 +322,7 @@ public class ProfileActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean isValidForm(){
+    private boolean isValidForm() {
         boolean isValid;
         isValid = checkFieldSimple(lblName, txtName) && checkField(lblAddress, txtAddress, imgAddress, Field.ADDRESS) && checkField(lblPhonenumber, txtPhonenumber, imgPhonenumber, Field.PHONENUMBER)
                 && checkField(lblEmail, txtEmail, imgEmail, Field.EMAIL) && checkField(lblWeb, txtWeb, imgWeb, Field.WEB);
@@ -347,6 +349,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static void startForResultUser(Activity activity, int requestCode, User user) {
         Intent intent = new Intent(activity, ProfileActivity.class);
         intent.putExtra(EXTRA_USER, user);
+        requestCodeCurrent = requestCode;
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -354,10 +357,25 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_USER)) {
             user = intent.getParcelableExtra(EXTRA_USER);
-            editableUser();
+            if (requestCodeCurrent == 1) {
+                editableUser();
+            } else {
+                createUser();
+            }
         } else {
             throw new IllegalArgumentException("Activity cannot find  extras " + EXTRA_USER);
         }
+    }
+
+    private void createUser() {
+        user = new User();
+        user.setName(txtName.toString());
+        user.setWeb(txtWeb.toString());
+        user.setEmail(txtEmail.toString());
+        user.setPhoneNumber(txtPhonenumber.toString());
+        user.setAvatar(Database.getInstance().queryAvatar(idChoosed));
+        user.setAddress(txtAddress.toString());
+
     }
 
     private void editableUser() {
@@ -372,14 +390,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void selectUserToEdit(User user) {
         Intent intent = new Intent();
-        if(user != null) {
-            user.setName(txtName.getText().toString());
-            user.setEmail(txtEmail.getText().toString());
-            user.setPhoneNumber(txtPhonenumber.getText().toString());
-            user.setAddress(txtAddress.getText().toString());
-            user.setWeb(txtWeb.getText().toString());
-            user.setAvatar(Database.getInstance().queryAvatar(idChoosed));
-        }
+        user.setName(txtName.getText().toString());
+        user.setEmail(txtEmail.getText().toString());
+        user.setPhoneNumber(txtPhonenumber.getText().toString());
+        user.setAddress(txtAddress.getText().toString());
+        user.setWeb(txtWeb.getText().toString());
+        user.setAvatar(Database.getInstance().queryAvatar(idChoosed));
         intent.putExtra(EXTRA_USER, user);
         setResult(RESULT_OK, intent);
         finish();

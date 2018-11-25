@@ -17,9 +17,9 @@ public class UsersDB {
     private final MutableLiveData<List<User>> usersLiveData = new MutableLiveData<>();
 
     private UsersDB() {
-        this.users = new ArrayList<>(Arrays.asList(new User(1, "Petrolina", "petrolina@gmail.com", "600223444", "eldiario.es", "el patio de mi casa", Database.getInstance().getRandomAvatar()),
-                new User(2, "Baldomero", "baldomero@gmail.com", "600116411","xataka.es", "Calle Maestro Jiménez", Database.getInstance().getRandomAvatar()),
-                new User(3, "Pancracia", "pancracia@gmail.com", "677889900","youtube.com","Avenida Ramón Puyol", Database.getInstance().getRandomAvatar())));
+        this.users = new ArrayList<>(Arrays.asList(new User("Petrolina", "petrolina@gmail.com", "600223444", "eldiario.es", "el patio de mi casa", Database.getInstance().getRandomAvatar()),
+                new User("Baldomero", "baldomero@gmail.com", "600116411","xataka.es", "Calle Maestro Jiménez", Database.getInstance().getRandomAvatar()),
+                new User("Pancracia", "pancracia@gmail.com", "677889900","youtube.com","Avenida Ramón Puyol", Database.getInstance().getRandomAvatar())));
         update();
     }
 
@@ -43,8 +43,13 @@ public class UsersDB {
         usersLiveData.setValue(new ArrayList<>(users));
     }
 
-    public User addUser(int position) {
-        return users.get(position);
+    public void addUser(User user) {
+        users.add(user);
+        update();
+    }
+
+    public int size(){
+        return users.size();
     }
 
     public User queryUser(long id) {

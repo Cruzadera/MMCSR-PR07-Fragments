@@ -24,7 +24,8 @@ public class UsersActivity extends AppCompatActivity {
     private UsersActivityAdapter listAdapter;
     private User user;
 
-    public static final int RC_USER = 1;
+    public static final int RC_EDIT = 1;
+    public static final int RC_PUT = 2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,23 +39,27 @@ public class UsersActivity extends AppCompatActivity {
 
     private void setupViews() {
         setupRecyclerView();
-        //b.fabAdd.setOnClickListener(l ->);
+        b.fabAdd.setOnClickListener(l -> startProfileActivity(new User(), RC_PUT));
+        b.lblEmptyView.setOnClickListener(l -> startProfileActivity(new User(),  RC_PUT));
     }
 
     private void setupRecyclerView() {
         listAdapter = new UsersActivityAdapter();
         listAdapter.setOnDeleteListener(position -> deleteUser(listAdapter.getItem(position)));
-        listAdapter.setOnEditableListener(position -> startProfileActivity(listAdapter.getItem(position)));
+        listAdapter.setOnEditableListener(position -> startProfileActivity(listAdapter.getItem(position), RC_EDIT));
         b.lstUsers.setHasFixedSize(true);
         b.lstUsers.setLayoutManager(new GridLayoutManager(this,
                 getResources().getInteger(R.integer.users_lstUsers_columns)));
         b.lstUsers.setItemAnimator(new DefaultItemAnimator());
-        b.lstUsers.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         b.lstUsers.setAdapter(listAdapter);
     }
 
-    private void startProfileActivity(User user) {
-        ProfileActivity.startForResultUser(UsersActivity.this, RC_USER, user);
+    private void startProfileActivity(User user, int requestCode) {
+        if(requestCode == RC_EDIT){
+            ProfileActivity.startForResultUser(UsersActivity.this, RC_EDIT, user);
+        }else {
+            ProfileActivity.startForResultUser(UsersActivity.this, RC_PUT, user);
+        }
     }
 
     private void deleteUser(User user) {
@@ -71,12 +76,20 @@ public class UsersActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == RESULT_OK && requestCode == RC_USER) {
+        if (resultCode == RESULT_OK && (requestCode == RC_EDIT || requestCode == RC_PUT)) {
             if (data != null && data.hasExtra(ProfileActivity.EXTRA_USER)) {
                 user = data.getParcelableExtra(ProfileActivity.EXTRA_USER);
-                userEdited(user);
+                if(requestCode == RC_PUT){
+                    addUser(user);
+                }else{
+                    userEdited(user);
+                }
             }
         }
+    }
+
+    private void addUser(User user) {
+        viewModel.addUser(user);
     }
 
     private void userEdited(User user) {

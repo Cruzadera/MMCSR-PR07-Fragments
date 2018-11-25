@@ -11,9 +11,10 @@ public class User implements Parcelable {
     private String web;
     private String address;
     private Avatar avatar;
+    public static long NUM_USERS = 0;
 
-    public User(long id, String name, String email, String phoneNumber, String web, String address, Avatar avatar) {
-        this.id = id;
+    public User(String name, String email, String phoneNumber, String web, String address, Avatar avatar) {
+        this.id = NUM_USERS++;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -22,12 +23,12 @@ public class User implements Parcelable {
         this.avatar = avatar;
     }
 
-    public long getId() {
-        return id;
+    public User() {
+        this.id = NUM_USERS++;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getId() {
+        return id;
     }
 
     public String getName() {
@@ -94,7 +95,7 @@ public class User implements Parcelable {
         dest.writeParcelable(this.avatar, flags);
     }
 
-    protected User(Parcel in) {
+    private User(Parcel in) {
         this.id = in.readLong();
         this.name = in.readString();
         this.email = in.readString();
