@@ -62,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        getIntentDataUser();
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -85,10 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuSave) {
-            if(save()){
-                //getIntentDataUser();
-                System.out.println("Holi");
-            }
+            save();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -330,11 +328,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private boolean save() {
+    private void save() {
         if (isValidForm()) {
             KeyboardUtils.hideSoftKeyboard(this);
             SnackbarUtils.snackbar(imgAvatar, getString(R.string.main_saved_succesfully));
-            return true;
+            selectUserToEdit(user);
         } else {
             KeyboardUtils.hideSoftKeyboard(this);
             SnackbarUtils.snackbar(imgAvatar, getString(R.string.main_error_saving));
@@ -342,7 +340,6 @@ public class ProfileActivity extends AppCompatActivity {
             checkField(lblPhonenumber, txtPhonenumber, imgPhonenumber, Field.PHONENUMBER);
             checkField(lblEmail, txtEmail, imgEmail, Field.EMAIL);
             checkField(lblWeb, txtWeb, imgWeb, Field.WEB);
-            return false;
         }
 
     }
@@ -357,14 +354,33 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_USER)) {
             user = intent.getParcelableExtra(EXTRA_USER);
+            editableUser();
         } else {
             throw new IllegalArgumentException("Activity cannot find  extras " + EXTRA_USER);
         }
     }
 
-    private void selectUserToEdit(long id) {
+    private void editableUser() {
+        txtName.setText(user.getName());
+        txtAddress.setText(user.getAddress());
+        txtPhonenumber.setText(user.getPhoneNumber());
+        txtWeb.setText(user.getWeb());
+        txtEmail.setText(user.getEmail());
+        imgAvatar.setImageResource(user.getAvatar().getImageResId());
+        lblAvatar.setText(user.getAvatar().getName());
+    }
+
+    private void selectUserToEdit(User user) {
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_USER, UsersDB.getInstance().queryUser(id));
+        if(user != null) {
+            user.setName(txtName.getText().toString());
+            user.setEmail(txtEmail.getText().toString());
+            user.setPhoneNumber(txtPhonenumber.getText().toString());
+            user.setAddress(txtAddress.getText().toString());
+            user.setWeb(txtWeb.getText().toString());
+            user.setAvatar(Database.getInstance().queryAvatar(idChoosed));
+        }
+        intent.putExtra(EXTRA_USER, user);
         setResult(RESULT_OK, intent);
         finish();
     }

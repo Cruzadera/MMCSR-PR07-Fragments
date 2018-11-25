@@ -3,10 +3,8 @@ package es.iessaladillo.pedrojoya.pr05.ui.users;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -46,13 +44,17 @@ public class UsersActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         listAdapter = new UsersActivityAdapter();
         listAdapter.setOnDeleteListener(position -> deleteUser(listAdapter.getItem(position)));
-        //listAdapter.setOnEditableListener(position -> editUser(listAdapter.getItem(position)));
+        listAdapter.setOnEditableListener(position -> startProfileActivity(listAdapter.getItem(position)));
         b.lstUsers.setHasFixedSize(true);
         b.lstUsers.setLayoutManager(new GridLayoutManager(this,
                 getResources().getInteger(R.integer.users_lstUsers_columns)));
         b.lstUsers.setItemAnimator(new DefaultItemAnimator());
         b.lstUsers.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         b.lstUsers.setAdapter(listAdapter);
+    }
+
+    private void startProfileActivity(User user) {
+        ProfileActivity.startForResultUser(UsersActivity.this, RC_USER, user);
     }
 
     private void deleteUser(User user) {
@@ -72,8 +74,12 @@ public class UsersActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == RC_USER) {
             if (data != null && data.hasExtra(ProfileActivity.EXTRA_USER)) {
                 user = data.getParcelableExtra(ProfileActivity.EXTRA_USER);
-                editUser(user);
+                userEdited(user);
             }
         }
+    }
+
+    private void userEdited(User user) {
+        viewModel.editUser(user);
     }
 }

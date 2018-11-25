@@ -67,6 +67,14 @@ public class Database {
         }
         return null;
     }
+    public Avatar queryAvatar(int imageResId) {
+        for (Avatar avatar: avatars) {
+            if (avatar.getImageResId() == imageResId) {
+                return avatar;
+            }
+        }
+        return null;
+    }
 
     @VisibleForTesting
     public void setAvatars(List<Avatar> list) {

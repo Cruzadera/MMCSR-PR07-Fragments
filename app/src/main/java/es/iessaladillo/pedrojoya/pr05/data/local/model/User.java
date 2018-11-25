@@ -10,16 +10,16 @@ public class User implements Parcelable {
     private String phoneNumber;
     private String web;
     private String address;
-    private int imgResId;
+    private Avatar avatar;
 
-    public User(long id, String name, String email, String phoneNumber, String web, String address, int imgResId) {
+    public User(long id, String name, String email, String phoneNumber, String web, String address, Avatar avatar) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.web = web;
         this.address = address;
-        this.imgResId = imgResId;
+        this.avatar = avatar;
     }
 
     public long getId() {
@@ -54,12 +54,12 @@ public class User implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getImgResId() {
-        return imgResId;
+    public Avatar getAvatar() {
+        return avatar;
     }
 
-    public void setImgResId(int imgResId) {
-        this.imgResId = imgResId;
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 
     public String getWeb() {
@@ -91,7 +91,7 @@ public class User implements Parcelable {
         dest.writeString(this.phoneNumber);
         dest.writeString(this.web);
         dest.writeString(this.address);
-        dest.writeInt(this.imgResId);
+        dest.writeParcelable(this.avatar, flags);
     }
 
     protected User(Parcel in) {
@@ -101,7 +101,7 @@ public class User implements Parcelable {
         this.phoneNumber = in.readString();
         this.web = in.readString();
         this.address = in.readString();
-        this.imgResId = in.readInt();
+        this.avatar = in.readParcelable(Avatar.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

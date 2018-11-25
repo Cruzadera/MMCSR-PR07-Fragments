@@ -16,10 +16,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import es.iessaladillo.pedrojoya.pr05.R;
-
-import es.iessaladillo.pedrojoya.pr05.data.local.UsersDB;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
-import es.iessaladillo.pedrojoya.pr05.ui.profile.ProfileActivity;
 
 public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter.ViewHolder>{
 
@@ -29,11 +26,20 @@ public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter
         void onDelete(int position);
     }
 
+    interface OnEditableListener{
+        void onEdit(int position);
+    }
+
     private OnDeleteListener onDeleteListener;
+
+    private OnEditableListener onEditableListener;
 
 
     void setOnDeleteListener(OnDeleteListener onDeleteListener) {
         this.onDeleteListener = onDeleteListener;
+    }
+    public void setOnEditableListener(OnEditableListener onEditableListener) {
+        this.onEditableListener = onEditableListener;
     }
 
     UsersActivityAdapter() {
@@ -48,7 +54,7 @@ public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter
                 return TextUtils.equals(oldItem.getName(), newItem.getName()) &&
                         TextUtils.equals(oldItem.getEmail(), newItem.getEmail())&&
                         TextUtils.equals(oldItem.getPhoneNumber(), newItem.getPhoneNumber()) &&
-                        oldItem.getImgResId() == newItem.getImgResId();
+                        oldItem.getAvatar().getImageResId() == newItem.getAvatar().getImageResId();
             }
         });
     }
@@ -97,15 +103,12 @@ public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter
            lblName.setText(user.getName());
            lblEmail.setText(user.getEmail());
            lblPhonenumber.setText(user.getPhoneNumber());
-           imgUser.setImageResource(user.getImgResId());
+           imgUser.setImageResource(user.getAvatar().getImageResId());
            if (onDeleteListener != null) {
                btnDelete.setOnClickListener(v -> onDeleteListener.onDelete(getAdapterPosition()));
+           }if(onEditableListener != null){
+               btnEdit.setOnClickListener(v -> onEditableListener.onEdit(getAdapterPosition()));
            }
-           btnEdit.setOnClickListener(v -> onEdit());
        }
-
-        private void onEdit() {
-            //ProfileActivity.startForResultUser(context, UsersActivity.RC_USER, );
-        }
     }
 }

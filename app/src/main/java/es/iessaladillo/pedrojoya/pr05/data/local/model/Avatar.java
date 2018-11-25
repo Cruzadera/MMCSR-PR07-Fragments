@@ -33,6 +33,8 @@ public class Avatar implements Parcelable {
         return name;
     }
 
+
+
     @Override
     public int describeContents() {
         return 0;

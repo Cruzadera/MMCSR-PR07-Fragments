@@ -30,7 +30,7 @@ public class UsersActivityViewModel extends ViewModel {
     }
 
     public void editUser(User user) {
-
+        database.editUser(user);
     }
 
     public void addUser(int position) {
