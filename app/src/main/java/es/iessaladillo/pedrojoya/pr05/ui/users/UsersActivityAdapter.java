@@ -1,6 +1,7 @@
 package es.iessaladillo.pedrojoya.pr05.ui.users;
 
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,28 +17,23 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import es.iessaladillo.pedrojoya.pr05.R;
 
+import es.iessaladillo.pedrojoya.pr05.data.local.UsersDB;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
+import es.iessaladillo.pedrojoya.pr05.ui.profile.ProfileActivity;
 
 public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter.ViewHolder>{
 
-    //Creamos dos interfaces de comunicación, una para borrar un Usuario y otra para editarlo.
+    private Context context;
+
     interface OnDeleteListener{
         void onDelete(int position);
     }
 
-    interface OnEditableListener{
-        void onEdit(int position);
-    }
-
     private OnDeleteListener onDeleteListener;
-    private OnEditableListener onEditableListener;
 
-    public void setOnDeleteListener(OnDeleteListener onDeleteListener) {
+
+    void setOnDeleteListener(OnDeleteListener onDeleteListener) {
         this.onDeleteListener = onDeleteListener;
-    }
-
-    public void setOnEditableListener(OnEditableListener onEditableListener) {
-        this.onEditableListener = onEditableListener;
     }
 
     UsersActivityAdapter() {
@@ -86,8 +82,9 @@ public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter
         private Button btnDelete;
         private Button btnEdit;
 
-       ViewHolder(View itemView) {
+       public ViewHolder(View itemView) {
            super(itemView);
+           context = itemView.getContext();
            lblName = ViewCompat.requireViewById(itemView, R.id.lblNameCV);
            lblPhonenumber = ViewCompat.requireViewById(itemView, R.id.lblPhonenumberCV);
            lblEmail = ViewCompat.requireViewById(itemView, R.id.lblEmailCV);
@@ -104,9 +101,11 @@ public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter
            if (onDeleteListener != null) {
                btnDelete.setOnClickListener(v -> onDeleteListener.onDelete(getAdapterPosition()));
            }
-           if (onEditableListener != null) {
-               itemView.setOnClickListener(v -> onEditableListener.onEdit(getAdapterPosition()));
-           }
+           btnEdit.setOnClickListener(v -> onEdit());
        }
+
+        private void onEdit() {
+            //ProfileActivity.startForResultUser(context, UsersActivity.RC_USER, );
+        }
     }
 }

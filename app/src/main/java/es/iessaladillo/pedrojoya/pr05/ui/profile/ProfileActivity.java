@@ -1,5 +1,6 @@
 package es.iessaladillo.pedrojoya.pr05.ui.profile;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -19,7 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import es.iessaladillo.pedrojoya.pr05.R;
 import es.iessaladillo.pedrojoya.pr05.data.local.Database;
+import es.iessaladillo.pedrojoya.pr05.data.local.UsersDB;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.Avatar;
+import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
 import es.iessaladillo.pedrojoya.pr05.ui.avatar.AvatarActivity;
 import es.iessaladillo.pedrojoya.pr05.utils.Field;
 import es.iessaladillo.pedrojoya.pr05.utils.IntentsImplicitUtils;
@@ -49,7 +52,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     public static final int RC_AVATAR = 1;
     private Avatar avatar = database.getDefaultAvatar();
+    private User user;
     private static final String STATE_IMAGE = "STATE_IMAGE";
+    public static final String EXTRA_USER = "EXTRA_USER";
     private long idChoosed = 1;
 
     @Override
@@ -80,7 +85,10 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuSave) {
-            save();
+            if(save()){
+                //getIntentDataUser();
+                System.out.println("Holi");
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -322,10 +330,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private void save() {
+    private boolean save() {
         if (isValidForm()) {
             KeyboardUtils.hideSoftKeyboard(this);
             SnackbarUtils.snackbar(imgAvatar, getString(R.string.main_saved_succesfully));
+            return true;
         } else {
             KeyboardUtils.hideSoftKeyboard(this);
             SnackbarUtils.snackbar(imgAvatar, getString(R.string.main_error_saving));
@@ -333,8 +342,31 @@ public class ProfileActivity extends AppCompatActivity {
             checkField(lblPhonenumber, txtPhonenumber, imgPhonenumber, Field.PHONENUMBER);
             checkField(lblEmail, txtEmail, imgEmail, Field.EMAIL);
             checkField(lblWeb, txtWeb, imgWeb, Field.WEB);
+            return false;
         }
 
+    }
+
+    public static void startForResultUser(Activity activity, int requestCode, User user) {
+        Intent intent = new Intent(activity, ProfileActivity.class);
+        intent.putExtra(EXTRA_USER, user);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    private void getIntentDataUser() {
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(EXTRA_USER)) {
+            user = intent.getParcelableExtra(EXTRA_USER);
+        } else {
+            throw new IllegalArgumentException("Activity cannot find  extras " + EXTRA_USER);
+        }
+    }
+
+    private void selectUserToEdit(long id) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_USER, UsersDB.getInstance().queryUser(id));
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

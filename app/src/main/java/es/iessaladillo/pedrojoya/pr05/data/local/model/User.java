@@ -8,13 +8,17 @@ public class User implements Parcelable {
     private String name;
     private String email;
     private String phoneNumber;
+    private String web;
+    private String address;
     private int imgResId;
 
-    public User(long id, String name, String email, String phoneNumber, int imgResId) {
+    public User(long id, String name, String email, String phoneNumber, String web, String address, int imgResId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.web = web;
+        this.address = address;
         this.imgResId = imgResId;
     }
 
@@ -58,6 +62,22 @@ public class User implements Parcelable {
         this.imgResId = imgResId;
     }
 
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -69,6 +89,8 @@ public class User implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.email);
         dest.writeString(this.phoneNumber);
+        dest.writeString(this.web);
+        dest.writeString(this.address);
         dest.writeInt(this.imgResId);
     }
 
@@ -77,6 +99,8 @@ public class User implements Parcelable {
         this.name = in.readString();
         this.email = in.readString();
         this.phoneNumber = in.readString();
+        this.web = in.readString();
+        this.address = in.readString();
         this.imgResId = in.readInt();
     }
 

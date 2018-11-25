@@ -17,9 +17,9 @@ public class UsersDB {
     private final MutableLiveData<List<User>> usersLiveData = new MutableLiveData<>();
 
     private UsersDB() {
-        this.users = new ArrayList<>(Arrays.asList(new User(1, "Petrolina", "petrolina@gmail.com", "600223444", R.drawable.cat1),
-                new User(2, "Baldomero", "baldomero@gmail.com", "600116411", R.drawable.cat2),
-                new User(3, "Pancracia", "pancracia@gmail.com", "677889900", R.drawable.cat3)));
+        this.users = new ArrayList<>(Arrays.asList(new User(1, "Petrolina", "petrolina@gmail.com", "600223444", "eldiario.es", "el patio de mi casa", R.drawable.cat1),
+                new User(2, "Baldomero", "baldomero@gmail.com", "600116411","xataka.es", "Calle Maestro Jiménez", R.drawable.cat2),
+                new User(3, "Pancracia", "pancracia@gmail.com", "677889900","youtube.com","Avenida Ramón Puyol", R.drawable.cat3)));
         usersLiveData.setValue(new ArrayList<>(users));
     }
 
@@ -39,8 +39,16 @@ public class UsersDB {
         usersLiveData.setValue(new ArrayList<>(users));
     }
 
-    public User editUser(User user) {
-        //TODO: TERMINAR MÉTODO
-        return user;
+    public User addUser(int position) {
+        return users.get(position);
+    }
+
+    public User queryUser(long id) {
+        for (User user: users) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
     }
 }
