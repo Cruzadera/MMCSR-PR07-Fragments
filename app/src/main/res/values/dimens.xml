@@ -3,4 +3,6 @@
 
     <dimen name="marginLblAvatar">8dp</dimen>
     <dimen name="margin_fab">8dp</dimen>
+    <dimen name="margin_CV">8dp</dimen>
+    <dimen name="height_btn_CV">36dp</dimen>
 </resources>
