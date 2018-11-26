@@ -1,7 +1,5 @@
 package es.iessaladillo.pedrojoya.pr05.ui.users;
 
-import android.content.Intent;
-
 import java.util.List;
 
 import androidx.lifecycle.LiveData;

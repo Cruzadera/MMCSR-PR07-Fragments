@@ -8,8 +8,8 @@
     <string name="avatar_select">Select</string>
     <string name="txtWeb">(web)</string>
     <string name="lblWeb">Web</string>
-    <string name="txtAdress">(adress)</string>
-    <string name="lblAdress">Adress</string>
+    <string name="txtAdress">(address)</string>
+    <string name="lblAdress">Address</string>
     <string name="txtPhone">(phone)</string>
     <string name="lblNumber">Phone number</string>
     <string name="txtEmail">(email)</string>

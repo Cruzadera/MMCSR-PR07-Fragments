@@ -33,7 +33,7 @@ public class AvatarActivity extends AppCompatActivity {
     private TextView lblCat06;
     private ArrayList<ImageView> imageViews = new ArrayList<>();
     private static final String STATE_AVATAR = "STATE_AVATAR";
-    private long idChoosed = 1;
+    private long idChoosed;
 
     @VisibleForTesting
     public static final String EXTRA_AVATAR = "EXTRA_AVATAR";
@@ -43,11 +43,8 @@ public class AvatarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avatar);
         initViews();
-        initAvatars();
-        if(savedInstanceState != null){
-            unselectImageView(imageViews.get((int)idChoosed));
-        }
         getIntentData();
+        initAvatars();
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -167,9 +164,10 @@ public class AvatarActivity extends AppCompatActivity {
 
     private void getIntentData() {
         Intent intent = getIntent();
-        Avatar avatar;
         if (intent != null && intent.hasExtra(EXTRA_AVATAR)) {
-            avatar = intent.getParcelableExtra(EXTRA_AVATAR);
+            Avatar avatar = intent.getParcelableExtra(EXTRA_AVATAR);
+            idChoosed = avatar.getId();
+            isSelected(idChoosed);
         } else {
             throw new IllegalArgumentException("Activity cannot find  extras " + EXTRA_AVATAR);
         }

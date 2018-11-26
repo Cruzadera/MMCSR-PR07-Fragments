@@ -357,6 +357,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_USER)) {
             user = intent.getParcelableExtra(EXTRA_USER);
+            idChoosed = user.getAvatar().getId();
             if (requestCodeCurrent == 1) {
                 editableUser();
             } else {

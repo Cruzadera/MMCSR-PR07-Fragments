@@ -20,8 +20,6 @@ import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
 
 public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter.ViewHolder>{
 
-    private Context context;
-
     interface OnDeleteListener{
         void onDelete(int position);
     }
@@ -90,7 +88,7 @@ public class UsersActivityAdapter extends ListAdapter<User, UsersActivityAdapter
 
        public ViewHolder(View itemView) {
            super(itemView);
-           context = itemView.getContext();
+           Context context = itemView.getContext();
            lblName = ViewCompat.requireViewById(itemView, R.id.lblNameCV);
            lblPhonenumber = ViewCompat.requireViewById(itemView, R.id.lblPhonenumberCV);
            lblEmail = ViewCompat.requireViewById(itemView, R.id.lblEmailCV);
