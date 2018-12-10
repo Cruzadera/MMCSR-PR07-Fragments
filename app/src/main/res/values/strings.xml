@@ -31,4 +31,5 @@
     <string name="btnDelete">Delete</string>
     <string name="contentDescriptionUserCV">Image of User</string>
     <string name="no_users">No users yet</string>
+    <string name="title_fragmentProfile">Profile</string>
 </resources>
