@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
     private static final String ARG_USER = "ARG_USER";
     private User user;
     private ProfileFragmentViewModel viewModel;
-    FragmentProfileBinding b;
+    private FragmentProfileBinding b;
     private MainActivityViewModel viewModelActivity;
     private OnAvatarChangedListener onAvatarChangedListener;
 
@@ -84,12 +84,6 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         obtainArguments();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        viewModelActivity.setAvatar(null);
     }
 
     @Override

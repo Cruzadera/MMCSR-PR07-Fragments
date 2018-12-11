@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import es.iessaladillo.pedrojoya.pr05.data.local.UsersDB;
-import es.iessaladillo.pedrojoya.pr05.ui.users.UsersActivityViewModel;
 
 public class UsersFragmentViewModelFactory implements ViewModelProvider.Factory{
     private final UsersDB usersDB;

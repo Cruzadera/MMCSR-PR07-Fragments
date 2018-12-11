@@ -29,7 +29,7 @@ import es.iessaladillo.pedrojoya.pr05.utils.ResourcesUtils;
 
 public class AvatarFragment extends Fragment {
 
-    FragmentAvatarBinding b;
+    private FragmentAvatarBinding b;
     private AvatarFragmentViewModel viewModel;
     private static final String ARG_AVATAR = "ARG_AVATAR";
     private ArrayList<ImageView> imageViews = new ArrayList<>();

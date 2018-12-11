@@ -27,7 +27,7 @@ public class UsersFragment extends Fragment {
     private UsersFragmentViewModel viewModel;
     private UsersFragmentAdapter listAdapter;
     private OnUserEditListener onUserEditListener;
-    FragmentUsersBinding b;
+    private FragmentUsersBinding b;
 
     public interface OnUserEditListener {
         void onUserEdit(User user);
