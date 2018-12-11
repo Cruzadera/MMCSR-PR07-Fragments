@@ -17,17 +17,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad3a9497-9992-4a2e-acdd-37f7466ec0db" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragmentViewModelFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/utils/TextWatcherUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/main/users/UsersFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/main/users/UsersFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragmentViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragmentViewModel.java" afterDir="false" />
-    </list>
+    <list default="true" id="ad3a9497-9992-4a2e-acdd-37f7466ec0db" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,8 +51,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+            <state relative-caret-position="315">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
             </state>
           </provider>
         </entry>
@@ -2565,22 +2555,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="pr05" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MMCSR-PR07-Fragments" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="pr05" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="avatar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MMCSR-PR07-Fragments" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="pr05" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2588,7 +2562,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="pr05" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="avatar" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -2597,7 +2570,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="pr05" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="users" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -2606,7 +2578,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="pr05" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="profile" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -2874,7 +2845,21 @@
       <option name="project" value="LOCAL" />
       <updated>1544464951143</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Finished PR07-Fragments">
+      <created>1544558588711</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1544558588711</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Finished PR07-Fragments. Quit innecesary directories">
+      <created>1544558703307</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1544558703307</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2888,7 +2873,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="12" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32838285" />
@@ -2905,13 +2889,13 @@
       <window_info id="Captures" order="4" weight="0.25" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13432837" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19989339" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.18151815" />
       <window_info anchor="right" id="Gradle" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="9" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.32897604" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32897604" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Inspection Results" order="13" weight="0.32897604" />
@@ -2991,7 +2975,9 @@
     <MESSAGE value="ERROR INTENT EDIT" />
     <MESSAGE value="Finished. It has to be added ViewModel of Avatar." />
     <MESSAGE value="Going forward. Avatar fragment not created." />
-    <option name="LAST_COMMIT_MESSAGE" value="Going forward. Avatar fragment not created." />
+    <MESSAGE value="Finished PR07-Fragments" />
+    <MESSAGE value="Finished PR07-Fragments. Quit innecesary directories" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished PR07-Fragments. Quit innecesary directories" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3506,8 +3492,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+        <state relative-caret-position="315">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
