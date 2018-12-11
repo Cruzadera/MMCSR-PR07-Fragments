@@ -19,10 +19,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ad3a9497-9992-4a2e-acdd-37f7466ec0db" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/avatar/AvatarFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/avatar/AvatarFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/main/users/UsersFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/main/users/UsersFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/main/users/UsersFragmentViewModelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/main/users/UsersFragmentViewModelFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragment.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,8 +45,8 @@
       <file leaf-file-name="ProfileFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="66" column="32" lean-forward="true" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
+            <state relative-caret-position="345">
+              <caret line="88" column="1" selection-start-line="88" selection-start-column="1" selection-end-line="92" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -2880,7 +2876,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544558789186</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Finished PR07-Fragments. Code cleaned">
+      <created>1544562009971</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1544562009971</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3000,7 +3003,8 @@
     <MESSAGE value="Finished PR07-Fragments" />
     <MESSAGE value="Finished PR07-Fragments. Quit innecesary directories" />
     <MESSAGE value="Finished PR07-Fragments. Add unversioned files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished PR07-Fragments. Add unversioned files" />
+    <MESSAGE value="Finished PR07-Fragments. Code cleaned" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished PR07-Fragments. Code cleaned" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3450,8 +3454,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/es/iessaladillo/pedrojoya/pr05/ui/main/profile/ProfileFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="66" column="32" lean-forward="true" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
+        <state relative-caret-position="345">
+          <caret line="88" column="1" selection-start-line="88" selection-start-column="1" selection-end-line="92" selection-end-column="5" />
         </state>
       </provider>
     </entry>
