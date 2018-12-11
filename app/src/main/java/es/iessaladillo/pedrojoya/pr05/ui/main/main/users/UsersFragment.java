@@ -76,8 +76,8 @@ public class UsersFragment extends Fragment {
     private void setupViews() {
         setupToolbar();
         setupRecyclerView();
-        //b.fabAdd.setOnClickListener(l -> startProfileActivity());
-       // b.lblEmptyView.setOnClickListener(l -> startProfileActivity(new User(),  RC_PUT));
+        b.fabAddFr.setOnClickListener(l -> onUserEditListener.onUserEdit(new User()));
+        b.lblEmptyViewFr.setOnClickListener(l -> onUserEditListener.onUserEdit(new User()));
     }
 
     private void setupToolbar() {
@@ -110,15 +110,6 @@ public class UsersFragment extends Fragment {
             listAdapter.submitList(users);
             b.lblEmptyViewFr.setVisibility(users.size() == 0 ? View.VISIBLE : View.INVISIBLE);
         });
-    }
-
-
-    private void addUser(User user) {
-        viewModel.addUser(user);
-    }
-
-    private void userEdited(User user) {
-        viewModel.editUser(user);
     }
 
 }

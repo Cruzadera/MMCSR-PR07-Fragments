@@ -3,22 +3,22 @@ package es.iessaladillo.pedrojoya.pr05.ui.main.profile;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -30,12 +30,15 @@ import java.util.Objects;
 
 import es.iessaladillo.pedrojoya.pr05.R;
 import es.iessaladillo.pedrojoya.pr05.data.local.UsersDB;
+import es.iessaladillo.pedrojoya.pr05.data.local.model.Avatar;
 import es.iessaladillo.pedrojoya.pr05.data.local.model.User;
 import es.iessaladillo.pedrojoya.pr05.databinding.FragmentProfileBinding;
+import es.iessaladillo.pedrojoya.pr05.ui.main.MainActivityViewModel;
 import es.iessaladillo.pedrojoya.pr05.utils.Field;
 import es.iessaladillo.pedrojoya.pr05.utils.IntentsImplicitUtils;
 import es.iessaladillo.pedrojoya.pr05.utils.KeyboardUtils;
 import es.iessaladillo.pedrojoya.pr05.utils.SnackbarUtils;
+import es.iessaladillo.pedrojoya.pr05.utils.TextWatcherUtils;
 import es.iessaladillo.pedrojoya.pr05.utils.ValidationUtils;
 
 public class ProfileFragment extends Fragment {
@@ -44,6 +47,12 @@ public class ProfileFragment extends Fragment {
     private User user;
     private ProfileFragmentViewModel viewModel;
     FragmentProfileBinding b;
+    private MainActivityViewModel viewModelActivity;
+    private OnAvatarChangedListener onAvatarChangedListener;
+
+    public interface OnAvatarChangedListener {
+        void onAvatarChanged(Avatar avatar);
+    }
 
     public static ProfileFragment newInstance(User user) {
         ProfileFragment fragment = new ProfileFragment();
@@ -53,13 +62,49 @@ public class ProfileFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            onAvatarChangedListener = (OnAvatarChangedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    context.toString() + " must implement ProfileFragment.OnAvatarChangedListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        onAvatarChangedListener = null;
+        super.onDetach();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         obtainArguments();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        viewModelActivity.setAvatar(null);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.activity_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.mnuSave) {
+            save();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void obtainArguments() {
         Bundle arguments = getArguments();
@@ -81,9 +126,18 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(ProfileFragmentViewModel.class);
-        //Objects.requireNonNull(getView());
+        Objects.requireNonNull(getArguments());
+        Objects.requireNonNull(getArguments().getParcelable(ARG_USER));
+        viewModel = ViewModelProviders.of(this, new ProfileFragmentViewModelFactory(
+                UsersDB.getInstance())).get(ProfileFragmentViewModel.class);
+        viewModelActivity = ViewModelProviders.of(requireActivity()).get(MainActivityViewModel.class);
         setupViews();
+        if (savedInstanceState == null) {
+            if (user.getAvatar() != null) {
+                viewModel.isEditedUser(true);
+                obtainDataUser();
+            }
+        }
     }
 
     private void setupViews() {
@@ -91,13 +145,31 @@ public class ProfileFragment extends Fragment {
         initViews();
     }
 
+    private void setupToolbar() {
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setIcon(R.drawable.ic_arrow_back_black_24dp);
+            actionBar.setTitle(getString(R.string.title_fragmentProfile));
+        }
+    }
+
+    private void obtainDataUser() {
+        b.include.txtName.setText(user.getName());
+        b.include.txtAddress.setText(user.getAddress());
+        b.include.txtPhonenumber.setText(user.getPhoneNumber());
+        b.include.txtWeb.setText(user.getWeb());
+        b.include.txtEmail.setText(user.getEmail());
+        viewModel.setAvatar(user.getAvatar());
+        displayAvatar();
+    }
+
     private void initViews() {
         initParametres();
-        //TEST
-        b.imgAvatar.setTag(viewModel.getDefaulfAvatar().getImageResId());
-        //LISTENERS
-        b.imgAvatar.setOnClickListener(l->startAvatarFragment());
+        displayAvatar();
 
+        //LISTENERS
+        b.imgAvatar.setOnClickListener(l -> onAvatarChangedListener.onAvatarChanged(viewModel.getAvatar()));
         b.include.imgAddress.setOnClickListener(l -> startIntent(Field.ADDRESS));
         b.include.imgEmail.setOnClickListener(l -> startIntent(Field.EMAIL));
         b.include.imgWeb.setOnClickListener(l -> startIntent(Field.WEB));
@@ -109,89 +181,11 @@ public class ProfileFragment extends Fragment {
         b.include.txtPhonenumber.setOnFocusChangeListener((v, hasFocus) -> onPointerCaptureFocus(hasFocus, b.include.lblPhonenumber));
         b.include.txtWeb.setOnFocusChangeListener((v, hasFocus) -> onPointerCaptureFocus(hasFocus, b.include.lblWeb));
 
-        b.include.txtName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                checkFieldSimple(b.include.lblName, b.include.txtName);
-            }
-        });
-
-        b.include.txtEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                checkField(b.include.lblEmail, b.include.txtEmail, b.include.imgEmail, Field.EMAIL);
-            }
-        });
-
-        b.include.txtAddress.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                checkField(b.include.lblAddress, b.include.txtAddress, b.include.imgAddress, Field.ADDRESS);
-            }
-        });
-
-        b.include.txtPhonenumber.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                checkField(b.include.lblPhonenumber, b.include.txtPhonenumber, b.include.imgPhonenumber, Field.PHONENUMBER);
-            }
-        });
-        b.include.txtWeb.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                checkField(b.include.lblWeb, b.include.txtWeb, b.include.imgWeb, Field.WEB);
-            }
-        });
+        TextWatcherUtils.setAfterTextChangeListener(b.include.txtName, s -> checkFieldSimple(b.include.lblName, b.include.txtName));
+        TextWatcherUtils.setAfterTextChangeListener(b.include.txtEmail, s -> checkField(b.include.lblEmail, b.include.txtEmail, b.include.imgEmail, Field.EMAIL));
+        TextWatcherUtils.setAfterTextChangeListener(b.include.txtAddress, s -> checkField(b.include.lblAddress, b.include.txtAddress, b.include.imgAddress, Field.ADDRESS));
+        TextWatcherUtils.setAfterTextChangeListener(b.include.txtPhonenumber, s -> checkField(b.include.lblPhonenumber, b.include.txtPhonenumber, b.include.imgPhonenumber, Field.PHONENUMBER));
+        TextWatcherUtils.setAfterTextChangeListener(b.include.txtWeb, s -> checkField(b.include.lblWeb, b.include.txtWeb, b.include.imgWeb, Field.WEB));
 
         b.include.txtWeb.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -204,16 +198,32 @@ public class ProfileFragment extends Fragment {
 
     private void save() {
         if (isValidForm()) {
-            KeyboardUtils.hideSoftKeyboard(getActivity());
+            KeyboardUtils.hideSoftKeyboard(requireActivity());
             SnackbarUtils.snackbar(b.imgAvatar, getString(R.string.main_saved_succesfully));
+            getDataUserEdit();
+            if (viewModel.isEditedUser()) {
+                viewModelActivity.setUser(user);
+            }else{
+                viewModel.addUser(user);
+            }
+            requireActivity().getSupportFragmentManager().popBackStack();
         } else {
-            KeyboardUtils.hideSoftKeyboard(getActivity());
+            KeyboardUtils.hideSoftKeyboard(requireActivity());
             SnackbarUtils.snackbar(b.imgAvatar, getString(R.string.main_error_saving));
             checkField(b.include.lblAddress, b.include.txtAddress, b.include.imgAddress, Field.ADDRESS);
             checkField(b.include.lblPhonenumber, b.include.txtPhonenumber, b.include.imgPhonenumber, Field.PHONENUMBER);
             checkField(b.include.lblEmail, b.include.txtEmail, b.include.imgEmail, Field.EMAIL);
             checkField(b.include.lblWeb, b.include.txtWeb, b.include.imgWeb, Field.WEB);
         }
+    }
+
+    private void getDataUserEdit() {
+        user.setName(b.include.txtName.getText().toString());
+        user.setEmail(b.include.txtEmail.getText().toString());
+        user.setPhoneNumber(b.include.txtPhonenumber.getText().toString());
+        user.setAddress(b.include.txtAddress.getText().toString());
+        user.setWeb(b.include.txtWeb.getText().toString());
+        user.setAvatar(viewModel.getAvatar());
     }
 
     private boolean isValidForm() {
@@ -287,24 +297,25 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void startAvatarFragment() {
-
-    }
-
     private void initParametres() {
         b.include.lblName.setTypeface(Typeface.DEFAULT_BOLD);
         b.include.txtName.requestFocus();
-        b.imgAvatar.setImageResource(viewModel.getDefaulfAvatar().getImageResId());
-        b.lblAvatar.setText(viewModel.getDefaulfAvatar().getName());
+        if (viewModelActivity.getAvatar() != null) {
+            viewModel.setAvatar(viewModelActivity.getAvatar());
+            viewModel.isEditedUser(false);
+        }else if(viewModel.getAvatar() == null){
+            viewModel.setAvatar(viewModel.getDefaulfAvatar());
+        }
     }
 
-    private void setupToolbar() {
-        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setIcon(R.drawable.ic_arrow_back_black_24dp);
-            actionBar.setTitle(getString(R.string.title_fragmentProfile));
+    private void displayAvatar() {
+        if (viewModelActivity.getAvatar() != null) {
+            viewModel.setAvatar(viewModelActivity.getAvatar());
         }
+        b.imgAvatar.setImageResource(viewModel.getAvatar().getImageResId());
+        b.lblAvatar.setText(viewModel.getAvatar().getName());
+        //TEST
+        b.imgAvatar.setTag(viewModel.getAvatar().getImageResId());
     }
 
 }
